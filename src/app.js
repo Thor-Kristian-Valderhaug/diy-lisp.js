@@ -78,13 +78,8 @@ function parse(source) {
   else if (parseInteger(source) !== null)
     return parseInteger(source);
   else if (source.charAt(0) === '(') {
-    var l = [];
-
-    splitExps(source.substring(1, findMatchingParen(source))).forEach((exp) => {
-      l.push(parse(exp));
-    });
-
-    return l;
+    return splitExps(source.substring(1, findMatchingParen(source)))
+      .map(parse);
   }
   else
     return source;
