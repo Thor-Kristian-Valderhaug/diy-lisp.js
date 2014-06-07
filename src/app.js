@@ -66,10 +66,7 @@ function parseBoolean(source) {
 }
 
 function parseInteger(source) {
-  if (isNaN(source))
-   return null;
-
-  return parseInt(source);
+  return isNaN(source) ? null : parseInt(source);
 }
 
 function parse(source) {
@@ -86,9 +83,6 @@ function parse(source) {
 }
 
 module.exports = {
-  findMatchingParen: (source, start = 0) => {
-    return findMatchingParen(source, start);
-  },
   parse: (source) => {
     return parse(source);
   }
