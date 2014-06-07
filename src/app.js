@@ -5,6 +5,9 @@ module.exports.parse = (str) => {
     case '#f':
       return false;
     default:
-      return str;
+      if (isNaN(parseInt(str)) === true)
+        return str;
+      else
+        return parseInt(str);
   }
 };

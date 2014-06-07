@@ -13,7 +13,7 @@ test('parse boolean', (t) => {
 });
 
 test('parse integer', (t) => {
-  t.plan(1);
+  t.plan(2);
   t.equal(lisp.parse('42'), 42);
   t.equal(lisp.parse('1337'), 1337);
 });
