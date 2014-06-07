@@ -1,11 +1,8 @@
-function findMatchingParen(str) {
-  if (str.charAt(0) !== '(')
+function findMatchingParen(str, start = 0) {
+  if (str.charAt(start) !== '(')
     throw Error('First character is not \'(\')');
 
-  if (str.charAt(str.length - 1) === ')')
-    return str.length - 1;
-
-  var i = 0;
+  var i = start;
   var openBrackets = 1;
 
   while (openBrackets > 0) {
@@ -25,6 +22,36 @@ function findMatchingParen(str) {
   }
 
   return i;
+}
+
+function splitExps(source) {
+  var rest = source.trim();
+  var exps = [];
+
+  while (rest) {
+    var result = firstExp(rest);
+    rest = result[1];
+    exps.push(result[0]);
+  }
+
+  return exps;
+}
+
+function firstExp(source) {
+  source = source.trim();
+
+  switch (source[0]) {
+    case '\'':
+      var [exp, rest] = firstExp(source.slice(1));
+      return [source[0] + exp, rest];
+    case '(':
+      var last = findMatchingParen(source);
+      return [source.slice(0, last + 1), source.slice(last + 1)];
+    default:
+      var match = source.match(/^[^\s)']+/);
+      var end = match[0].length;
+      return [source.slice(0, end), source.slice(end)];
+  }
 }
 
 function parseBoolean(str) {
@@ -49,30 +76,31 @@ function parseInteger(str) {
     return null;
 }
 
-function parseAtom(str) {
+function parse(str) {
   if (parseBoolean(str) !== null)
     return parseBoolean(str);
   else if (parseInteger(str) !== null)
     return parseInteger(str);
+  else if (str === '()')
+    return [];
+  else if (str.charAt(0) === '(') {
+    var l = [];
+
+    splitExps(str.substring(1, findMatchingParen(str))).forEach((exp) => {
+      l.push(parse(exp));
+    });
+
+    return l;
+  }
   else
     return str;
 }
 
-function parseListOfSymbols(str) {
-  if (str === '()')
-    return [];
-  else if (str.charAt(0) === '(' && findMatchingParen(str))
-    return str
-      .substring(1, findMatchingParen(str))
-      .split(' ')
-      .map(parseAtom);
-  else
-    return null;
-}
-
-module.exports.parse = (str) => {
-  if (parseListOfSymbols(str) !== null)
-    return parseListOfSymbols(str);
-  else
-    return parseAtom(str);
+module.exports = {
+  findMatchingParen: (str, start = 0) => {
+    return findMatchingParen(str, start);
+  },
+  parse: (str) => {
+    return parse(str);
+  }
 };

@@ -1,6 +1,12 @@
 var test = require('tape');
 var lisp = require('../src/app.js');
 
+test('findMatchingParen', (t) => {
+  t.plan(2);
+  t.equal(lisp.findMatchingParen('(foo bar)'), 8);
+  t.equal(lisp.findMatchingParen('(foo (bar baz))', 5), 13);
+});
+
 test('parse single symbol', (t) => {
   t.plan(1);
   t.equal(lisp.parse('foo'), 'foo');
@@ -33,5 +39,5 @@ test('parse on nested list', (t) => {
   t.plan(1);
   var program = '(foo (bar ((#t)) x) (baz y))';
   var ast = ['foo', ['bar', [[true]], 'x'], ['baz', 'y']];
-  t.deepEqual(lisp.parse(program, ast));
+  t.deepEqual(lisp.parse(program), ast);
 });
