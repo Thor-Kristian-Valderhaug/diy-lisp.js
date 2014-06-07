@@ -28,3 +28,10 @@ test('parse list of mixed types', (t) => {
   t.plan(1);
   t.deepEqual(lisp.parse('(foo #t 123)'), ['foo', true, 123]);
 });
+
+test('parse on nested list', (t) => {
+  t.plan(1);
+  var program = '(foo (bar ((#t)) x) (baz y))';
+  var ast = ['foo', ['bar', [[true]], 'x'], ['baz', 'y']];
+  t.deepEqual(lisp.parse(program, ast));
+});

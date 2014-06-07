@@ -29,10 +29,20 @@ function parseAtom(str) {
     return str;
 }
 
+function findMatchingParen(str) {
+  if (str.charAt(0) !== '(')
+    throw Error('First character is not \'(\')');
+
+  if (str.charAt(str.length - 1) === ')')
+    return str.length - 1;
+
+  return null;
+}
+
 function parseListOfSymbols(str) {
   if (str === '()')
     return [];
-  else if (str.charAt(0) === '(' && str.charAt(str.length - 1) === ')')
+  else if (str.charAt(0) === '(' && findMatchingParen(str))
     return str
       .substring(1, str.length - 1)
       .split(' ')
