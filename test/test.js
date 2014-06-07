@@ -1,12 +1,6 @@
 var test = require('tape');
 var lisp = require('../src/app.js');
 
-test('findMatchingParen', (t) => {
-  t.plan(2);
-  t.equal(lisp.findMatchingParen('(foo bar)'), 8);
-  t.equal(lisp.findMatchingParen('(foo (bar baz))', 5), 13);
-});
-
 test('parse single symbol', (t) => {
   t.plan(1);
   t.equal(lisp.parse('foo'), 'foo');
