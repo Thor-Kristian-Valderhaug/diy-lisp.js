@@ -65,15 +65,11 @@ function parseBoolean(source) {
   }
 }
 
-function isInteger(source) {
-  return isNaN(parseInt(source)) === false;
-}
-
 function parseInteger(source) {
-  if (isInteger(source))
-    return parseInt(source);
-  else
-    return null;
+  if (isNaN(source))
+   return null;
+
+  return parseInt(source);
 }
 
 function parse(source) {
@@ -81,8 +77,6 @@ function parse(source) {
     return parseBoolean(source);
   else if (parseInteger(source) !== null)
     return parseInteger(source);
-  else if (source === '()')
-    return [];
   else if (source.charAt(0) === '(') {
     var l = [];
 
