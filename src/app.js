@@ -36,7 +36,26 @@ function findMatchingParen(str) {
   if (str.charAt(str.length - 1) === ')')
     return str.length - 1;
 
-  return null;
+  var i = 0;
+  var openBrackets = 1;
+
+  while (openBrackets > 0) {
+    i += 1;
+
+    if (str.length === i)
+      throw Error('Incomplete expression: ' + str);
+
+    switch (str[i]) {
+      case '(':
+        openBrackets += 1;
+        break;
+      case ')':
+        openBrackets -= 1;
+        break;
+    }
+  }
+
+  return i;
 }
 
 function parseListOfSymbols(str) {
