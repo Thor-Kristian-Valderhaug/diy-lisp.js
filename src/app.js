@@ -1,3 +1,32 @@
+function findMatchingParen(str) {
+  if (str.charAt(0) !== '(')
+    throw Error('First character is not \'(\')');
+
+  if (str.charAt(str.length - 1) === ')')
+    return str.length - 1;
+
+  var i = 0;
+  var openBrackets = 1;
+
+  while (openBrackets > 0) {
+    i += 1;
+
+    if (str.length === i)
+      throw Error('Incomplete expression: ' + str);
+
+    switch (str[i]) {
+      case '(':
+        openBrackets += 1;
+        break;
+      case ')':
+        openBrackets -= 1;
+        break;
+    }
+  }
+
+  return i;
+}
+
 function parseBoolean(str) {
   switch (str) {
     case '#t':
@@ -27,35 +56,6 @@ function parseAtom(str) {
     return parseInteger(str);
   else
     return str;
-}
-
-function findMatchingParen(str) {
-  if (str.charAt(0) !== '(')
-    throw Error('First character is not \'(\')');
-
-  if (str.charAt(str.length - 1) === ')')
-    return str.length - 1;
-
-  var i = 0;
-  var openBrackets = 1;
-
-  while (openBrackets > 0) {
-    i += 1;
-
-    if (str.length === i)
-      throw Error('Incomplete expression: ' + str);
-
-    switch (str[i]) {
-      case '(':
-        openBrackets += 1;
-        break;
-      case ')':
-        openBrackets -= 1;
-        break;
-    }
-  }
-
-  return i;
 }
 
 function parseListOfSymbols(str) {
