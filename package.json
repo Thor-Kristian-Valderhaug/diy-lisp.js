@@ -1,12 +1,12 @@
 {
   "name": "diy-lisp",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "A DIY Lisp in JavaScript based on kvalle/diy-lisp",
+  "main": "dist/src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node dist/test/test.js"
   },
-  "author": "",
+  "author": "Alexander Teinum",
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.7.0",
