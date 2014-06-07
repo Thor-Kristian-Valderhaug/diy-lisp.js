@@ -23,3 +23,8 @@ test('parse list of symbols', (t) => {
   t.deepEqual(lisp.parse('()'), []);
   t.deepEqual(lisp.parse('(foo bar baz)'), ['foo', 'bar', 'baz']);
 });
+
+test('parse list of mixed types', (t) => {
+  t.plan(1);
+  t.deepEqual(lisp.parse('(foo #t 123)'), ['foo', true, 123]);
+});

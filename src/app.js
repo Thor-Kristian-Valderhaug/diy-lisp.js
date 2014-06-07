@@ -20,22 +20,30 @@ function parseInteger(str) {
     return null;
 }
 
+function parseAtom(str) {
+  if (parseBoolean(str) !== null)
+    return parseBoolean(str);
+  else if (parseInteger(str) !== null)
+    return parseInteger(str);
+  else
+    return str;
+}
+
 function parseListOfSymbols(str) {
   if (str === '()')
     return [];
   else if (str.charAt(0) === '(' && str.charAt(str.length - 1) === ')')
-    return str.substring(1, str.length - 1).split(' ');
+    return str
+      .substring(1, str.length - 1)
+      .split(' ')
+      .map(parseAtom);
   else
     return null;
 }
 
 module.exports.parse = (str) => {
-  if (parseBoolean(str) !== null)
-    return parseBoolean(str);
-  else if (parseInteger(str) !== null)
-    return parseInteger(str);
-  else if (parseListOfSymbols(str) !== null)
+  if (parseListOfSymbols(str) !== null)
     return parseListOfSymbols(str);
   else
-    return str;
+    return parseAtom(str);
 };
