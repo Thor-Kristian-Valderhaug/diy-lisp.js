@@ -1,13 +1,11 @@
-function isBoolean(str) {
-  return str === '#t' || str === '#f';
-}
-
 function parseBoolean(str) {
   switch (str) {
     case '#t':
       return true;
     case '#f':
       return false;
+    default:
+      return null;
   }
 }
 
@@ -16,13 +14,16 @@ function isInteger(str) {
 }
 
 function parseInteger(str) {
-  return parseInt(str);
+  if (isInteger(str))
+    return parseInt(str);
+  else
+    return null;
 }
 
 module.exports.parse = (str) => {
-  if (isBoolean(str) === true)
+  if (parseBoolean(str) !== null)
     return parseBoolean(str);
-  else if (isInteger(str) === true)
+  else if (parseInteger(str) !== null)
     return parseInteger(str);
   else
     return str;
