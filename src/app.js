@@ -1,5 +1,5 @@
-function findMatchingParen(str, start = 0) {
-  if (str.charAt(start) !== '(')
+function findMatchingParen(source, start = 0) {
+  if (source.charAt(start) !== '(')
     throw Error('First character is not \'(\')');
 
   var i = start;
@@ -8,10 +8,10 @@ function findMatchingParen(str, start = 0) {
   while (openBrackets > 0) {
     i += 1;
 
-    if (str.length === i)
-      throw Error('Incomplete expression: ' + str);
+    if (source.length === i)
+      throw Error('Incomplete expression: ' + source);
 
-    switch (str[i]) {
+    switch (source[i]) {
       case '(':
         openBrackets += 1;
         break;
@@ -54,8 +54,8 @@ function firstExp(source) {
   }
 }
 
-function parseBoolean(str) {
-  switch (str) {
+function parseBoolean(source) {
+  switch (source) {
     case '#t':
       return true;
     case '#f':
@@ -65,42 +65,42 @@ function parseBoolean(str) {
   }
 }
 
-function isInteger(str) {
-  return isNaN(parseInt(str)) === false;
+function isInteger(source) {
+  return isNaN(parseInt(source)) === false;
 }
 
-function parseInteger(str) {
-  if (isInteger(str))
-    return parseInt(str);
+function parseInteger(source) {
+  if (isInteger(source))
+    return parseInt(source);
   else
     return null;
 }
 
-function parse(str) {
-  if (parseBoolean(str) !== null)
-    return parseBoolean(str);
-  else if (parseInteger(str) !== null)
-    return parseInteger(str);
-  else if (str === '()')
+function parse(source) {
+  if (parseBoolean(source) !== null)
+    return parseBoolean(source);
+  else if (parseInteger(source) !== null)
+    return parseInteger(source);
+  else if (source === '()')
     return [];
-  else if (str.charAt(0) === '(') {
+  else if (source.charAt(0) === '(') {
     var l = [];
 
-    splitExps(str.substring(1, findMatchingParen(str))).forEach((exp) => {
+    splitExps(source.substring(1, findMatchingParen(source))).forEach((exp) => {
       l.push(parse(exp));
     });
 
     return l;
   }
   else
-    return str;
+    return source;
 }
 
 module.exports = {
-  findMatchingParen: (str, start = 0) => {
-    return findMatchingParen(str, start);
+  findMatchingParen: (source, start = 0) => {
+    return findMatchingParen(source, start);
   },
-  parse: (str) => {
-    return parse(str);
+  parse: (source) => {
+    return parse(source);
   }
 };
