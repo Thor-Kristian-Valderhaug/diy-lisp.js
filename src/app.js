@@ -82,8 +82,4 @@ function parse(source) {
     return source;
 }
 
-module.exports = {
-  parse: (source) => {
-    return parse(source);
-  }
-};
+module.exports = { parse };
