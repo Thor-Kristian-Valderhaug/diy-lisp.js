@@ -20,11 +20,20 @@ function parseInteger(str) {
     return null;
 }
 
+function parseListOfSymbols(str) {
+  if (str === '()')
+    return [];
+  else
+    return null;
+}
+
 module.exports.parse = (str) => {
   if (parseBoolean(str) !== null)
     return parseBoolean(str);
   else if (parseInteger(str) !== null)
     return parseInteger(str);
+  else if (parseListOfSymbols(str) !== null)
+    return parseListOfSymbols(str);
   else
     return str;
 };

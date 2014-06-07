@@ -17,3 +17,9 @@ test('parse integer', (t) => {
   t.equal(lisp.parse('42'), 42);
   t.equal(lisp.parse('1337'), 1337);
 });
+
+test('parse list of symbols', (t) => {
+  t.plan(1);
+  t.deepEqual(lisp.parse('()'), []);
+  t.equal(lisp.parse('(foo bar baz)'), ['foo', 'bar', 'baz']);
+});
