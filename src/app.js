@@ -1,3 +1,3 @@
-module.exports.parse = function (str) {
+module.exports.parse = (str) => {
   return str;
 }
