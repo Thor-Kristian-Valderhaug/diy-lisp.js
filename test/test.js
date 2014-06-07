@@ -11,3 +11,9 @@ test('parse boolean', (t) => {
   t.equal(lisp.parse('#t'), true);
   t.equal(lisp.parse('#f'), false);
 });
+
+test('parse integer', (t) => {
+  t.plan(1);
+  t.equal(lisp.parse('42'), 42);
+  t.equal(lisp.parse('1337'), 1337);
+});

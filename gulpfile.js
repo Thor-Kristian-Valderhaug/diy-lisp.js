@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var es6transpiler = require('gulp-es6-transpiler');
+var jshint = require('gulp-jshint');
 
 var paths = {
   scriptsSrc: ['src/*.js'],
@@ -9,12 +10,16 @@ var paths = {
 gulp.task('scripts-src', function() {
   return gulp.src(paths.scriptsSrc)
     .pipe(es6transpiler())
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(gulp.dest('dist/src'));
 });
 
 gulp.task('scripts-test', function() {
   return gulp.src(paths.scriptsTest)
     .pipe(es6transpiler())
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(gulp.dest('dist/test'));
 });
 

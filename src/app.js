@@ -7,4 +7,4 @@ module.exports.parse = (str) => {
     default:
       return str;
   }
-}
+};
