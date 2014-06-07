@@ -1,8 +1,10 @@
 module.exports.parse = (str) => {
-  if (str === '#t')
-    return true;
-  else if (str === '#f')
-    return false;
-  else
-    return str;
+  switch (str) {
+    case '#t':
+      return true;
+    case '#f':
+      return false;
+    default:
+      return str;
+  }
 }
