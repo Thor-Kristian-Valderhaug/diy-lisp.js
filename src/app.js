@@ -63,7 +63,7 @@ function parseListOfSymbols(str) {
     return [];
   else if (str.charAt(0) === '(' && findMatchingParen(str))
     return str
-      .substring(1, str.length - 1)
+      .substring(1, findMatchingParen(str))
       .split(' ')
       .map(parseAtom);
   else
