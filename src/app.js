@@ -23,6 +23,8 @@ function parseInteger(str) {
 function parseListOfSymbols(str) {
   if (str === '()')
     return [];
+  else if (str.charAt(0) === '(' && str.charAt(str.length - 1) === ')')
+    return str.substring(1, str.length - 1).split(' ');
   else
     return null;
 }
